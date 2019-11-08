@@ -1,5 +1,6 @@
 package com.orange_infinity.onlinepay.ui.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,9 @@ class MainActivity : AppCompatActivity() {
 
         (application as MyApplication).appComponent.inject(this)
         setUpRecycler()
+
+        val intent = Intent(this, SuccessPayedActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onBackPressed() {
