@@ -13,17 +13,17 @@ class MainModule {
     @Provides
     fun provideMainActivityPresenter(
         ticketManager: TicketManager,
-        updateController: UpdateController
-    ): MainActivityPresenter = MainActivityPresenter(ticketManager = ticketManager, updateController = updateController)
+        serverEntryController: ServerEntryController
+    ): MainActivityPresenter = MainActivityPresenter(ticketManager = ticketManager, serverEntryController = serverEntryController)
 
     @Provides
     fun provideTicketManager(ticketRepository: TicketRepository): TicketManager = TicketManager(ticketRepository)
 
     @Provides
-    fun provideUpdateController(programUpdater: ProgramUpdater): UpdateController = UpdateController(programUpdater)
+    fun provideUpdateController(programUpdater: ProgramUpdater): ServerEntryController = ServerEntryController(programUpdater)
 
     @Provides
-    fun provideServerController(payInfoService: PayInfoService): ServerController = ServerController(payInfoService)
+    fun provideServerController(payInfoService: PayInfoService): ServerPayController = ServerPayController(payInfoService)
 
     @Provides
     fun provideTicketRepository(): TicketRepository = TicketRepository()
