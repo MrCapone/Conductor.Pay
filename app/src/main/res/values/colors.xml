@@ -9,4 +9,10 @@
     <color name="colorBlack">#000</color>
     <color name="colorRed">#FF0000</color>
     <color name="colorMaroon">#A52A2A</color>
+
+    <color name="colorBackground">#3F51B5</color>
+    <color name="colorDarkBackground">#303F9F</color>
+    <color name="colorLightYellow">#FFC107</color>
+    <color name="colorYellow">#E1AB09</color>
+    <color name="colorDarkYellow">#D98F00</color>
 </resources>

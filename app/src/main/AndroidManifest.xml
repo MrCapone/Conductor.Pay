@@ -3,10 +3,13 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.orange_infinity.onlinepay">
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.NFC"/>
+
+    <uses-feature android:name="android.hardware.nfc"/>
 
     <application
         android:name=".daggerConfigurations.MyApplication"
@@ -17,17 +20,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.view.SuccessPayedActivity">
-        </activity>
-        <activity android:name=".ui.view.PayActivity"/>
-        <activity android:name=".ui.view.SettingsActivity">
-        </activity>
-        <activity android:name=".ui.view.MainActivity">
+        <activity android:name=".ui.activities.RegistrationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.activities.SuccessPayedActivity">
+        </activity>
+        <activity android:name=".ui.activities.PayActivity"/>
+        <activity android:name=".ui.activities.SettingsActivity">
+        </activity>
+        <activity android:name=".ui.activities.MainActivity">
         </activity>
     </application>
 

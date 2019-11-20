@@ -1,4 +1,4 @@
-package com.orange_infinity.onlinepay.ui.view
+package com.orange_infinity.onlinepay.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

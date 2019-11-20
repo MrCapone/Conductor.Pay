@@ -1,8 +1,8 @@
 package com.orange_infinity.onlinepay.daggerConfigurations
 
-import com.orange_infinity.onlinepay.ui.view.MainActivity
-import com.orange_infinity.onlinepay.ui.view.PayActivity
-import com.orange_infinity.onlinepay.ui.view.SettingsActivity
+import com.orange_infinity.onlinepay.ui.activities.MainActivity
+import com.orange_infinity.onlinepay.ui.activities.PayActivity
+import com.orange_infinity.onlinepay.ui.activities.SettingsActivity
 import dagger.Component
 
 @Component(modules = [MainModule::class])

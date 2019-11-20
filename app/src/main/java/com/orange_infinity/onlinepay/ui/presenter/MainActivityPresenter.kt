@@ -25,6 +25,7 @@ class MainActivityPresenter(
         if (serverEntryController.signIn(pseudoID)) {
             serverEntryController.sighUp(pseudoID)
         }
+        // Вызвать окошечко, мол всё збс (ОК, готово к работе)
     }
 
     fun updateProgram() {
