@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".ui.activities.SuccessPayedActivity">
-
 
     <TextView
         android:id="@+id/tvSuccess"
@@ -15,47 +15,53 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="40dp"
-        android:textColor="@color/colorRed"
+        app:layout_constraintBottom_toTopOf="@id/layoutTicket"
+        android:textColor="@color/colorWhite"
         android:textSize="32sp"
+        android:textStyle="bold"
         android:text="УСПЕШНО!"/>
 
-    <TextView
-        android:id="@+id/tvYourTicket"
+    <FrameLayout
+        android:id="@+id/layoutTicket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSuccess"
-        app:layout_constraintBottom_toTopOf="@id/imgQrExample"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:paddingTop="16dp"
-        android:textColor="@color/colorBlack"
-        android:textSize="24sp"
-        android:text="Ваш билет:"/>
+        app:layout_constraintBottom_toTopOf="@id/btnBack">
 
-    <ImageView
-        android:id="@+id/imgQrExample"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnBack"
-        app:layout_constraintTop_toBottomOf="@id/tvYourTicket"
-        android:src="@drawable/qr_code_example"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:background="@color/colorWhite"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:id="@+id/imgQrExample"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:padding="12dp"
+            android:background="@color/colorWhite"
+            android:src="@drawable/qr_code_example"/>
+
+    </FrameLayout>
+
 
     <Button
         android:id="@+id/btnBack"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:background="@drawable/button_style"
+        android:text="НАЗАД"
+        android:textColor="@color/colorBlack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:textColor="@color/colorWhite"
-        android:textSize="22sp"
-        android:background="@color/colorMaroon"
-        android:text="Назад"/>
+        app:layout_constraintTop_toBottomOf="@id/layoutTicket"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:textStyle="bold"
+        android:textSize="24sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
