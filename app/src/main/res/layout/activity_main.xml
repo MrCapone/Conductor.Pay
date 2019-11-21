@@ -9,47 +9,166 @@
     android:orientation="vertical"
     tools:context=".ui.activities.MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:elevation="4dp"
-        app:contentInsetStart="0dp"
-        android:background="@color/colorWhitesh">
+        android:layout_height="0dp"
+        android:layout_weight="40">
+
+        <LinearLayout
+            android:id="@+id/layoutInfo"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorBackground">
+            </View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_connect"
+                    android:layout_marginStart="16dp"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginStart="16dp"
+                    android:layout_gravity="center"
+                    android:textSize="18sp"
+                    android:text="Прислоните карту или телефон для оплаты проезда:"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutStrange"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutInfo">
+
+            <ImageView
+                android:id="@+id/imgMain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_rectangle_inner"/>
+
+            <ImageView
+                android:id="@+id/imgInner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:paddingStart="40dp"
+                android:paddingEnd="40dp"
+                android:layout_marginBottom="48dp"
+                android:src="@drawable/ic_rectangle_main"/>
 
             <TextView
+                android:id="@+id/tvCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="21sp"
-                android:textColor="@color/colorBlack"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="132dp"
+                android:layout_gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="44sp"
                 android:textStyle="bold"
-                android:text="Conductor.Pay"/>
+                android:text="21 РУБЛЬ"/>
+
+
+            <TextView
+                android:id="@+id/tvPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCost"
+                android:layout_gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="44sp"
+                android:textStyle="bold"
+                android:text="ОПЛАТА"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutLeft"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnLeft"
+                android:layout_width="75dp"
+                android:layout_height="60dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btnRight"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:background="@drawable/mini_button_style"
+                android:text="18"/>
+
+            <Button
+                android:id="@+id/btnRight"
+                android:layout_width="75dp"
+                android:layout_height="60dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btnLeft"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:background="@drawable/mini_button_style"
+                android:text="10"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.appcompat.widget.Toolbar>
 
-    <FrameLayout
-        android:id="@+id/layoutFrameRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/layoutRight"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/layoutRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginEnd="16dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:background="@drawable/button_style"
+                android:text="НАЛИЧНЫМИ"/>
+
+        </LinearLayout>
 
 
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </FrameLayout>
+    </LinearLayout>
 
 </LinearLayout>
