@@ -12,8 +12,8 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var presenter: MainActivityPresenter
+//    @Inject
+//    lateinit var presenter: MainActivityPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,14 +24,14 @@ class MainActivity : AppCompatActivity() {
         )
 
         (application as MyApplication).appComponent.inject(this)
-        presenter.updateProgram()
-        presenter.sendSignInInfoToServer()
+//        presenter.updateProgram()
+//        presenter.sendSignInInfoToServer()
 
 //        val intent = Intent(this, SuccessPayedActivity::class.java)
 //        startActivity(intent)
 
         layoutInfo.setOnClickListener {
-            val intent = Intent(this, SuccessPayedActivity::class.java)
+            val intent = Intent(this, TestActivity::class.java)
             startActivity(intent)
         }
     }

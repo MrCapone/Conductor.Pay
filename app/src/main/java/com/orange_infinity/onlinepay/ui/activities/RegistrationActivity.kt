@@ -19,7 +19,8 @@ class RegistrationActivity : AppCompatActivity() {
         )
 
         btnEnter.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            //val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, TestActivity::class.java)
             startActivity(intent)
         }
     }
