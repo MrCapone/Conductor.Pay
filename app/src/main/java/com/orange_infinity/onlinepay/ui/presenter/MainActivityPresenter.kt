@@ -70,9 +70,8 @@ class MainActivityPresenter(
 
     override fun onPostExecute(result: Boolean) {
         if (result) {
-            //activity.onCompleteDownload()
+            activity.onCompleteDownload()
         }
-        activity.processCurrentVerIsLast()
     }
 
     private fun loadApk(apkUrl: String) {

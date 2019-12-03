@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.os.Environment.getExternalStorageDirectory
 import android.os.StrictMode
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.orange_infinity.onlinepay.R
 import com.orange_infinity.onlinepay.daggerConfigurations.MyApplication
 import com.orange_infinity.onlinepay.ui.MainActivityInt
+import com.orange_infinity.onlinepay.ui.dialogs.DownloadDialog
 import com.orange_infinity.onlinepay.ui.presenter.MainActivityPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
@@ -39,6 +41,29 @@ class MainActivity : AppCompatActivity(), MainActivityInt {
             val intent = Intent(this, SuccessPayedActivity::class.java)
             startActivity(intent)
         }
+
+        // TODO("Просто прибиль гвоздями")
+        btnLeft.setOnClickListener {
+            val mainNum = Integer.parseInt(tvCost.text.toString().subSequence(0, 2).toString())
+            val btnNum = Integer.parseInt(btnLeft.text.toString())
+            btnLeft.text = mainNum.toString()
+            if (btnNum != 21) {
+                tvCost.text = "$btnNum рублей"
+            } else {
+                tvCost.text = "$btnNum рубль"
+            }
+        }
+
+        btnRight.setOnClickListener {
+            val mainNum = Integer.parseInt(tvCost.text.toString().subSequence(0, 2).toString())
+            val btnNum = Integer.parseInt(btnRight.text.toString())
+            btnRight.text = mainNum.toString()
+            if (btnNum != 21) {
+                tvCost.text = "$btnNum рублей"
+            } else {
+                tvCost.text = "$btnNum рубль"
+            }
+        }
     }
 
     override fun onCompleteDownload() { //TODO("Заменить на работу через FileProvider, удалить в MyApplication костыли")
@@ -56,14 +81,16 @@ class MainActivity : AppCompatActivity(), MainActivityInt {
     }
 
     override fun onStartDownload() {
-        // Отобразить начало загрузки
+        val dialog = DownloadDialog.newInstance()
+        dialog.show(supportFragmentManager, "")
     }
 
     override fun onErrorDownload() {
-        // Загрузка свалилась с ошибкой
+        Toast.makeText(this, "Ошибка загрузки обновления ;(", Toast.LENGTH_SHORT).show()
     }
 
     override fun processCurrentVerIsLast() {
+        Toast.makeText(this, "Запущена последняя версия", Toast.LENGTH_SHORT).show()
     }
 
     override fun getAppContext(): Context {
