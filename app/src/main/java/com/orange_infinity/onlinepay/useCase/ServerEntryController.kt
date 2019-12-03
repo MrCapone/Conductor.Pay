@@ -1,7 +1,9 @@
 package com.orange_infinity.onlinepay.useCase
 
 import android.util.Log
+import com.orange_infinity.onlinepay.ui.presenter.UpdateLoader
 import com.orange_infinity.onlinepay.util.MAIN_TAG
+import com.orange_infinity.onlinepay.util.getProgramVersion
 
 class ServerEntryController(private val programUpdater: ProgramUpdater) {
 
@@ -15,8 +17,10 @@ class ServerEntryController(private val programUpdater: ProgramUpdater) {
     }
 
     fun downloadNewVersion() {
-        programUpdater.updateProgram()
+        //programUpdater.updateProgram()
     }
 
-    fun isNeedUpdateProgram(): Boolean = programUpdater.isLastVersion()
+    fun isNeedUpdateProgram(updateLoader: UpdateLoader) {
+        programUpdater.isLastVersion(getProgramVersion(), updateLoader)
+    }
 }

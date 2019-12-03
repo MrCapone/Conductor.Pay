@@ -2,6 +2,8 @@ package com.orange_infinity.onlinepay.daggerConfigurations
 
 import com.orange_infinity.onlinepay.data.db.TicketRepository
 import com.orange_infinity.onlinepay.data.network.PayInfoService
+import com.orange_infinity.onlinepay.ui.MainActivityInt
+import com.orange_infinity.onlinepay.ui.activities.MainActivity
 import com.orange_infinity.onlinepay.ui.presenter.MainActivityPresenter
 import com.orange_infinity.onlinepay.useCase.*
 import dagger.Module
