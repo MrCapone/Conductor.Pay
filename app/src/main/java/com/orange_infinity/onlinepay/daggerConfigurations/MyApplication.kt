@@ -1,6 +1,7 @@
 package com.orange_infinity.onlinepay.daggerConfigurations
 
 import android.app.Application
+import android.os.StrictMode
 
 class MyApplication : Application() {
 
@@ -11,5 +12,8 @@ class MyApplication : Application() {
         appComponent = DaggerAppComponent.builder()
             .mainModule(MainModule())
             .build()
+
+        val builder = StrictMode.VmPolicy.Builder()
+        StrictMode.setVmPolicy(builder.build())
     }
 }

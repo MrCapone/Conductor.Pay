@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment.getExternalStorageDirectory
+import android.os.StrictMode
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.orange_infinity.onlinepay.R
@@ -14,6 +15,7 @@ import com.orange_infinity.onlinepay.ui.presenter.MainActivityPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import javax.inject.Inject
+
 
 class MainActivity : AppCompatActivity(), MainActivityInt {
 
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity(), MainActivityInt {
 
         (application as MyApplication).appComponent.inject(this)
         presenter.activity = this
+
         handleNetwork()
 
         layoutInfo.setOnClickListener {
@@ -38,14 +41,16 @@ class MainActivity : AppCompatActivity(), MainActivityInt {
         }
     }
 
-    override fun onCompleteDownload() {
+    override fun onCompleteDownload() { //TODO("Заменить на работу через FileProvider, удалить в MyApplication костыли")
         val intent = Intent(Intent.ACTION_VIEW)
-        val file = File("${getExternalStorageDirectory()}/download/app.apk")
+        val apkSourceFile = File("${getExternalStorageDirectory()}/download/app.apk")
 
         intent.setDataAndType(
-            Uri.fromFile(file),
+            Uri.fromFile(apkSourceFile),
+            //FileProvider.getUriForFile(this, "${applicationContext.packageName}.provider", apkSourceFile),
             "application/vnd.android.package-archive"
         )
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
