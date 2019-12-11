@@ -2,9 +2,8 @@ package com.orange_infinity.onlinepay.daggerConfigurations
 
 import com.orange_infinity.onlinepay.data.db.TicketRepository
 import com.orange_infinity.onlinepay.data.network.PayInfoService
-import com.orange_infinity.onlinepay.ui.MainActivityInt
-import com.orange_infinity.onlinepay.ui.activities.MainActivity
 import com.orange_infinity.onlinepay.ui.presenter.MainActivityPresenter
+import com.orange_infinity.onlinepay.ui.presenter.RegistrationPresenter
 import com.orange_infinity.onlinepay.useCase.*
 import dagger.Module
 import dagger.Provides
@@ -14,9 +13,12 @@ class MainModule {
 
     @Provides
     fun provideMainActivityPresenter(
-        ticketManager: TicketManager,
-        serverEntryController: ServerEntryController
-    ): MainActivityPresenter = MainActivityPresenter(ticketManager = ticketManager, serverEntryController = serverEntryController)
+        ticketManager: TicketManager
+    ): MainActivityPresenter = MainActivityPresenter(ticketManager = ticketManager)
+
+    @Provides
+    fun provideRegistrationActivityPresenter(serverEntryController: ServerEntryController): RegistrationPresenter
+            = RegistrationPresenter(serverEntryController = serverEntryController)
 
     @Provides
     fun provideTicketManager(ticketRepository: TicketRepository): TicketManager = TicketManager(ticketRepository)

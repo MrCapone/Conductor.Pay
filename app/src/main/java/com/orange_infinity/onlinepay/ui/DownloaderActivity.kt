@@ -2,7 +2,7 @@ package com.orange_infinity.onlinepay.ui
 
 import android.content.Context
 
-interface MainActivityInt {
+interface DownloaderActivity {
 
     fun onCompleteDownload()
 
