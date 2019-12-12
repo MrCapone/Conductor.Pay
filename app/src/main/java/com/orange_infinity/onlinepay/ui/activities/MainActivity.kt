@@ -10,6 +10,7 @@ import com.orange_infinity.onlinepay.R
 import com.orange_infinity.onlinepay.daggerConfigurations.MyApplication
 import com.orange_infinity.onlinepay.ui.activities.interfaces.IMainActivity
 import com.orange_infinity.onlinepay.ui.presenter.MainActivityPresenter
+import com.orange_infinity.onlinepay.util.getIntValue
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -35,22 +36,28 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         presenter.activity = this
 
         btnPaymentType.text = CASH_PAYMENT_TYPE
-        layoutInfo.setOnClickListener {
-            val intent = Intent(this, SuccessPayedActivity::class.java)
-            startActivity(intent)
-        }
         addListeners()
         blockViews()
 
         presenter.setUpPaymentSystem()
     }
 
+    private fun blockViews() {
+        setEnableToAllButtons(false)
+    }
+
     override fun onSetupEnded() {
         setEnableToAllButtons(true)
     }
 
-    private fun blockViews() {
-        setEnableToAllButtons(false)
+    override fun onCashPayed(link: String) {
+        val intent = Intent(this, SuccessPayedActivity::class.java)
+        intent.putExtra(CHEQUE_LINK_KEY, link)
+        startActivity(intent)
+    }
+
+    override fun onCardPayed(link: String) {
+
     }
 
     private fun setEnableToAllButtons(isEnable: Boolean) {
@@ -90,6 +97,10 @@ class MainActivity : AppCompatActivity(), IMainActivity {
             } else {
                 changeCardToCash()
             }
+        }
+
+        btnPayByCash.setOnClickListener {
+            presenter.payByCash(tvCost.text.toString().getIntValue())
         }
     }
 

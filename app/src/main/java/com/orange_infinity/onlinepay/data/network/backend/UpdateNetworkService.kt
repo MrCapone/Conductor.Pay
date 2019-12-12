@@ -1,4 +1,4 @@
-package com.orange_infinity.onlinepay.data.network
+package com.orange_infinity.onlinepay.data.network.backend
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,7 +21,8 @@ class UpdateNetworkService {
 
         fun getInstance(): UpdateNetworkService {
             if (instance == null) {
-                instance = UpdateNetworkService()
+                instance =
+                    UpdateNetworkService()
             }
             return instance!!
         }
@@ -31,7 +32,7 @@ class UpdateNetworkService {
         return retrofit.create(LastVersionPlaceHolderApi::class.java)
     }
 
-    fun getUpdaterPlaceHolderApi(): UpdaterPlaceHolder {
-        return retrofit.create(UpdaterPlaceHolder::class.java)
+    fun getUpdaterPlaceHolderApi(): UpdaterPlaceHolderApi {
+        return retrofit.create(UpdaterPlaceHolderApi::class.java)
     }
 }

@@ -1,7 +1,7 @@
 package com.orange_infinity.onlinepay.useCase
 
 import android.util.Log
-import com.orange_infinity.onlinepay.data.network.UpdateNetworkService
+import com.orange_infinity.onlinepay.data.network.backend.UpdateNetworkService
 import com.orange_infinity.onlinepay.entities.dto.LastVersionDto
 import com.orange_infinity.onlinepay.entities.dto.UpdateUrlDto
 import com.orange_infinity.onlinepay.ui.presenter.UpdateLoader
