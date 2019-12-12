@@ -15,7 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.orange_infinity.onlinepay.R
 import com.orange_infinity.onlinepay.daggerConfigurations.MyApplication
-import com.orange_infinity.onlinepay.ui.DownloaderActivity
+import com.orange_infinity.onlinepay.ui.activities.interfaces.DownloaderActivity
 import com.orange_infinity.onlinepay.ui.dialogs.DownloadDialog
 import com.orange_infinity.onlinepay.ui.presenter.RegistrationPresenter
 import kotlinx.android.synthetic.main.activity_registration.*
@@ -24,7 +24,8 @@ import javax.inject.Inject
 
 private const val REQUEST_READ_STORAGE = 113
 
-class RegistrationActivity : AppCompatActivity(), DownloaderActivity {
+class RegistrationActivity : AppCompatActivity(),
+    DownloaderActivity {
 
     @Inject
     lateinit var presenter: RegistrationPresenter
@@ -97,6 +98,7 @@ class RegistrationActivity : AppCompatActivity(), DownloaderActivity {
     override fun onStartDownload() {
         val dialog = DownloadDialog.newInstance()
         dialog.show(supportFragmentManager, "")
+        btnEnter.isEnabled = false
     }
 
     override fun onErrorDownload() {

@@ -1,20 +1,24 @@
 package com.orange_infinity.onlinepay.ui.activities
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.orange_infinity.onlinepay.R
 import com.orange_infinity.onlinepay.daggerConfigurations.MyApplication
+import com.orange_infinity.onlinepay.ui.activities.interfaces.IMainActivity
 import com.orange_infinity.onlinepay.ui.presenter.MainActivityPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
+private const val CASH_PAYMENT_TYPE = "Наличными"
+private const val CARD_PAYMENT_TYPE = "Оплата картой"
+private const val CARD_PAYMENT_DESCRIPTION = "Прислоните карту или телефон для оплаты проезда:"
+private const val CASH_PAYMENT_DESCRIPTION = "НАЛИЧНЫЙ РАСЧЁТ"
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IMainActivity {
 
     @Inject
     lateinit var presenter: MainActivityPresenter
@@ -28,14 +32,32 @@ class MainActivity : AppCompatActivity() {
         )
 
         (application as MyApplication).appComponent.inject(this)
-        //presenter.activity = this
+        presenter.activity = this
 
+        btnPaymentType.text = CASH_PAYMENT_TYPE
         layoutInfo.setOnClickListener {
             val intent = Intent(this, SuccessPayedActivity::class.java)
             startActivity(intent)
         }
-
         addListeners()
+        blockViews()
+
+        presenter.setUpPaymentSystem()
+    }
+
+    override fun onSetupEnded() {
+        setEnableToAllButtons(true)
+    }
+
+    private fun blockViews() {
+        setEnableToAllButtons(false)
+    }
+
+    private fun setEnableToAllButtons(isEnable: Boolean) {
+        btnLeft.isEnabled = isEnable
+        btnRight.isEnabled = isEnable
+        btnPaymentType.isEnabled = isEnable
+        btnPayByCash.isEnabled = isEnable
     }
 
     private fun addListeners() {
@@ -61,5 +83,35 @@ class MainActivity : AppCompatActivity() {
                 tvCost.text = "$btnNum рубль"
             }
         }
+
+        btnPaymentType.setOnClickListener {
+            if (btnPaymentType.text == CASH_PAYMENT_TYPE) {
+                changeCashToCard()
+            } else {
+                changeCardToCash()
+            }
+        }
+    }
+
+    private fun changeCashToCard() {
+        btnPayByCash.visibility = View.VISIBLE
+        btnPaymentType.text = CARD_PAYMENT_TYPE
+        btnPaymentType.textSize = 18f
+
+        imgNfc.visibility = View.GONE
+        tvPaymentDescription.text = CASH_PAYMENT_DESCRIPTION
+        tvPaymentDescription.textSize = 24f
+        tvPaymentDescription.gravity = Gravity.CENTER
+    }
+
+    private fun changeCardToCash() {
+        btnPayByCash.visibility = View.GONE
+        btnPaymentType.text = CASH_PAYMENT_TYPE
+        btnPaymentType.textSize = 20f
+
+        imgNfc.visibility = View.VISIBLE
+        tvPaymentDescription.text = CARD_PAYMENT_DESCRIPTION
+        tvPaymentDescription.textSize = 18f
+        tvPaymentDescription.gravity = Gravity.START
     }
 }

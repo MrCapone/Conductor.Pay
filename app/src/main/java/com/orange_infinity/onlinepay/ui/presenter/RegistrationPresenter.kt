@@ -5,7 +5,7 @@ import android.os.Build
 import android.os.Environment
 import android.util.Log
 import android.widget.Toast
-import com.orange_infinity.onlinepay.ui.DownloaderActivity
+import com.orange_infinity.onlinepay.ui.activities.interfaces.DownloaderActivity
 import com.orange_infinity.onlinepay.useCase.ServerEntryController
 import com.orange_infinity.onlinepay.util.MAIN_TAG
 import java.io.File

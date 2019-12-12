@@ -1,4 +1,4 @@
-package com.orange_infinity.onlinepay.ui
+package com.orange_infinity.onlinepay.ui.activities.interfaces
 
 import android.content.Context
 
