@@ -8,16 +8,15 @@ import com.orange_infinity.onlinepay.entities.dto.SellDto
 import com.orange_infinity.onlinepay.entities.dto.TokenDto
 import com.orange_infinity.onlinepay.entities.model.Token
 import com.orange_infinity.onlinepay.ui.activities.interfaces.IMainActivity
-import com.orange_infinity.onlinepay.useCase.TicketManager
+import com.orange_infinity.onlinepay.useCase.CashChequeManager
 import com.orange_infinity.onlinepay.util.MAIN_TAG
 import io.reactivex.rxjava3.annotations.NonNull
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class MainActivityPresenter(
-    val ticketManager: TicketManager
+    val cashChequeManager: CashChequeManager
 ) {
 
     lateinit var activity: IMainActivity
@@ -32,6 +31,9 @@ class MainActivityPresenter(
         receipt.payments.first().sum = cost.toFloat()
         receipt.total = cost.toFloat()
 
+        activity.onCashPayed()
+        cashChequeManager.saveChequeByExternalId(activity.getAppContext(), sellDto.external_id)
+
         EcomNetworkService.getInstance()
             .getCreateSellPlaceHolderApi()
             .createCell(sellDto, Token.token!!)
@@ -43,7 +45,8 @@ class MainActivityPresenter(
 
                     if (chequeDto != null) {
                         Log.i(MAIN_TAG, "Cheque link: ${chequeDto.permalink}")
-                        activity.onCashPayed(chequeDto.permalink)
+                        cashChequeManager.processCashTicket(activity.getAppContext(), chequeDto, sellDto.external_id)
+                        //activity.onCashPayed(chequeDto.permalink)
                     } else {
                         Log.e(MAIN_TAG, "tokenDto is null, error!")
                     }
@@ -93,5 +96,9 @@ class MainActivityPresenter(
                 }
             })
 //        activity.onSetupEnded()
+    }
+
+    fun playPayementMelody() {
+
     }
 }

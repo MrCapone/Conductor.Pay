@@ -1,6 +1,6 @@
 package com.orange_infinity.onlinepay.ui.activities
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -46,18 +46,28 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         setEnableToAllButtons(false)
     }
 
+    override fun getAppContext(): Context {
+        return applicationContext
+    }
+
     override fun onSetupEnded() {
         setEnableToAllButtons(true)
     }
 
-    override fun onCashPayed(link: String) {
-        val intent = Intent(this, SuccessPayedActivity::class.java)
-        intent.putExtra(CHEQUE_LINK_KEY, link)
-        startActivity(intent)
+    override fun onCashPayed() {
+        // DO SMTH
+        presenter.playPayementMelody()
     }
 
-    override fun onCardPayed(link: String) {
 
+//    override fun onCashPayed(link: String) {
+//        val intent = Intent(this, SuccessPayedActivity::class.java)
+//        intent.putExtra(CHEQUE_LINK_KEY, link)
+//        startActivity(intent)
+//    }
+
+    override fun onCardPayed(link: String) {
+        presenter.playPayementMelody()
     }
 
     private fun setEnableToAllButtons(isEnable: Boolean) {

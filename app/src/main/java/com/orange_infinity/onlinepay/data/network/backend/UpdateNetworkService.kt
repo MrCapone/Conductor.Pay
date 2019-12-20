@@ -3,7 +3,8 @@ package com.orange_infinity.onlinepay.data.network.backend
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val UPDATER_URL = "http://kolyanpie.ddns.net:8095"
+//private const val MY_BACKEND_URL = "http://kolyanpie.ddns.net:8095"
+private const val MY_BACKEND_URL = "http://localhost:8095"
 
 class UpdateNetworkService {
 
@@ -11,7 +12,7 @@ class UpdateNetworkService {
 
     init {
         retrofit = Retrofit.Builder()
-            .baseUrl(UPDATER_URL)
+            .baseUrl(MY_BACKEND_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

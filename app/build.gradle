@@ -9,7 +9,7 @@ android {
         applicationId "com.orange_infinity.onlinepay"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 2
+        versionCode 3
         versionName "1.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -53,4 +53,16 @@ dependencies {
     //implementation 'com.yandex.money:checkout:2.4.0'
 
     //implementation 'io.card:android-sdk:5.5.1'
+
+    // DB
+    String roomVersion = '2.2.3'
+    String lifecycle_version = '2.1.0'
+    implementation "androidx.room:room-runtime:$roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    kapt "android.arch.persistence.room:compiler:1.1.1"
 }

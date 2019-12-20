@@ -4,12 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.orange_infinity.onlinepay.R
 import com.orange_infinity.onlinepay.daggerConfigurations.MyApplication
-import com.orange_infinity.onlinepay.useCase.TicketManager
+import com.orange_infinity.onlinepay.useCase.CashChequeManager
 import javax.inject.Inject
 
 class SettingsActivity : AppCompatActivity() {
 
-    @Inject lateinit var ticketManager: TicketManager
+    @Inject lateinit var cashChequeManager: CashChequeManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

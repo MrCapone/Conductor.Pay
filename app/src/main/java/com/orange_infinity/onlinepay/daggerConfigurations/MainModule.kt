@@ -1,6 +1,6 @@
 package com.orange_infinity.onlinepay.daggerConfigurations
 
-import com.orange_infinity.onlinepay.data.db.TicketRepository
+import com.orange_infinity.onlinepay.data.db.CashChequeDao
 import com.orange_infinity.onlinepay.data.network.PayInfoService
 import com.orange_infinity.onlinepay.ui.presenter.MainActivityPresenter
 import com.orange_infinity.onlinepay.ui.presenter.RegistrationPresenter
@@ -13,24 +13,21 @@ class MainModule {
 
     @Provides
     fun provideMainActivityPresenter(
-        ticketManager: TicketManager
-    ): MainActivityPresenter = MainActivityPresenter(ticketManager = ticketManager)
+        cashChequeManager: CashChequeManager
+    ): MainActivityPresenter = MainActivityPresenter(cashChequeManager = cashChequeManager)
 
     @Provides
     fun provideRegistrationActivityPresenter(serverEntryController: ServerEntryController): RegistrationPresenter
             = RegistrationPresenter(serverEntryController = serverEntryController)
 
     @Provides
-    fun provideTicketManager(ticketRepository: TicketRepository): TicketManager = TicketManager(ticketRepository)
+    fun provideTicketManager(): CashChequeManager = CashChequeManager()
 
     @Provides
     fun provideUpdateController(programUpdater: ProgramUpdater): ServerEntryController = ServerEntryController(programUpdater)
 
     @Provides
     fun provideServerController(payInfoService: PayInfoService): ServerPayController = ServerPayController(payInfoService)
-
-    @Provides
-    fun provideTicketRepository(): TicketRepository = TicketRepository()
 
     @Provides
     fun provideProgramUpdater(): ProgramUpdater = ProgramUpdater()
