@@ -42,12 +42,13 @@ class RegistrationActivity : AppCompatActivity(),
         (application as MyApplication).appComponent.inject(this)
         presenter.activity = this
 
-        requestPermission(this)
+        //requestPermission(this)
         //handleNetwork()
 
         btnEnter.setOnClickListener {
             if (hasPermissions(this)) {
-                val intent = Intent(this, MainActivity::class.java)
+                //val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, TestNfcActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -58,7 +59,7 @@ class RegistrationActivity : AppCompatActivity(),
         presenter.sendSignInInfoToServer()
     }
 
-    private fun requestPermission(context: Activity) { //TODO("Если отказано в доступе, запросить снова!")
+    private fun requestPermission(context: Activity) {
         if (!hasPermissions(context)) {
             ActivityCompat.requestPermissions(
                 context,
@@ -74,7 +75,7 @@ class RegistrationActivity : AppCompatActivity(),
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_READ_STORAGE) {
             if (hasPermissions(this)) {
-                handleNetwork()
+                //handleNetwork()
             } else {
                 requestPermission(this)
             }
