@@ -1,9 +1,9 @@
 package com.orange_infinity.onlinepay.ui.presenter
 
-import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
 import com.orange_infinity.onlinepay.data.db.AppDatabase
+import com.orange_infinity.onlinepay.data.network.backend.MyBackendNetworkService
 import com.orange_infinity.onlinepay.data.network.ecomkassa.EcomNetworkService
 import com.orange_infinity.onlinepay.entities.dto.CallGetTokenDto
 import com.orange_infinity.onlinepay.entities.dto.ChequeDto
@@ -30,6 +30,7 @@ class MainActivityCashPresenter(
             val receipt = sellDto.receipt
             receipt.items.first().name += "$cost"
             receipt.items.first().sum = cost.toFloat()
+            receipt.items.first().price = cost.toFloat()
             receipt.payments.first().sum = cost.toFloat()
             receipt.total = cost.toFloat()
 
@@ -46,11 +47,11 @@ class MainActivityCashPresenter(
                         val chequeDto = response.body()
                         Log.i(MAIN_TAG, "onResponse for payByCash()")
 
-                        if (chequeDto != null) { //TODO("Send info about cheque in BACKEND")
+                        if (chequeDto != null) {
                             Log.i(MAIN_TAG, "Cheque link: ${chequeDto.permalink}")
                             cashChequeManager.processCashTicket(activity.getAppContext(), chequeDto, sellDto.external_id)
+                            sendCashChequeToBackend(chequeDto, sellDto.receipt.items.first().price.toInt())
                             if (isMainCheque) {
-                                //activity.onCashPayed()
                                 UnsetChequeSender().execute(cashChequeManager)
                             }
                         } else {
@@ -60,6 +61,25 @@ class MainActivityCashPresenter(
 
                     override fun onFailure(@NonNull call: Call<ChequeDto>, @NonNull t: Throwable) {
                         Log.i(MAIN_TAG, "ERROR: " + t.localizedMessage)
+                        t.printStackTrace()
+                    }
+                })
+        }
+
+        private fun sendCashChequeToBackend(chequeDto: ChequeDto, ticketCost: Int) {
+            chequeDto.cost = ticketCost
+            MyBackendNetworkService.getInstance()
+                .getCashChequePlaceHolderApi()
+                .saveCheque(chequeDto)
+                .enqueue(object : Callback<ChequeDto> {
+
+                    override fun onResponse(@NonNull call: Call<ChequeDto>, @NonNull response: Response<ChequeDto>) {
+                        val responseBody = response.body()
+                        Log.i(MAIN_TAG, "onResponse for sendCashChequeToBackend(), uuid = ${responseBody?.uuid}")
+                    }
+
+                    override fun onFailure(@NonNull call: Call<ChequeDto>, @NonNull t: Throwable) {
+                        Log.i(MAIN_TAG, "ERROR in sendCashChequeToBackend(): " + t.localizedMessage)
                         t.printStackTrace()
                     }
                 })

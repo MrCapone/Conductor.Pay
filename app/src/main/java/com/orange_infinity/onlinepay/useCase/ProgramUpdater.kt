@@ -1,7 +1,7 @@
 package com.orange_infinity.onlinepay.useCase
 
 import android.util.Log
-import com.orange_infinity.onlinepay.data.network.backend.UpdateNetworkService
+import com.orange_infinity.onlinepay.data.network.backend.MyBackendNetworkService
 import com.orange_infinity.onlinepay.entities.dto.LastVersionDto
 import com.orange_infinity.onlinepay.entities.dto.UpdateUrlDto
 import com.orange_infinity.onlinepay.ui.presenter.UpdateLoader
@@ -14,7 +14,7 @@ import retrofit2.Response
 class ProgramUpdater { //TODO("Не правильная архитекрута, хули тут делает класс, работающий с сетью?")
 
     fun isLastVersion(currentVersion: Int, updateLoader: UpdateLoader) {
-        UpdateNetworkService.getInstance()
+        MyBackendNetworkService.getInstance()
             .getLastVersionPlaceHolderApi()
             .getLastVersion()
             .enqueue(object : Callback<LastVersionDto> {
@@ -45,7 +45,7 @@ class ProgramUpdater { //TODO("Не правильная архитекрута,
     }
 
     fun updateProgram(updateLoader: UpdateLoader) {
-        UpdateNetworkService.getInstance()
+        MyBackendNetworkService.getInstance()
             .getUpdaterPlaceHolderApi()
             .getUpdaterUrl()
             .enqueue(object : Callback<UpdateUrlDto> {

@@ -7,4 +7,5 @@ class ChequeDto {
     lateinit var status: String
     lateinit var permalink: String
     lateinit var kind: String
+    var cost: Int = 0
 }

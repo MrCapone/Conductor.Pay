@@ -4,10 +4,10 @@ import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-//private const val MY_BACKEND_URL = "http://kolyanpie.ddns.net:8095"
-private const val MY_BACKEND_URL = "http://localhost:8095"
+private const val MY_BACKEND_URL = "http://kolyanpie.ddns.net:8095"
+//private const val MY_BACKEND_URL = "http://601625ac.ngrok.io:8090"
 
-class UpdateNetworkService {
+class MyBackendNetworkService {
 
     private var retrofit: Retrofit
 
@@ -22,12 +22,12 @@ class UpdateNetworkService {
     }
 
     companion object {
-        private var instance: UpdateNetworkService? = null
+        private var instance: MyBackendNetworkService? = null
 
-        fun getInstance(): UpdateNetworkService {
+        fun getInstance(): MyBackendNetworkService {
             if (instance == null) {
                 instance =
-                    UpdateNetworkService()
+                    MyBackendNetworkService()
             }
             return instance!!
         }
@@ -39,5 +39,9 @@ class UpdateNetworkService {
 
     fun getUpdaterPlaceHolderApi(): UpdaterPlaceHolderApi {
         return retrofit.create(UpdaterPlaceHolderApi::class.java)
+    }
+
+    fun getCashChequePlaceHolderApi(): CashChequePlaceHolderApi {
+        return retrofit.create(CashChequePlaceHolderApi::class.java)
     }
 }
