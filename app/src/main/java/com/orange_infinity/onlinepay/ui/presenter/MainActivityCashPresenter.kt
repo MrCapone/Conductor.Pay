@@ -1,5 +1,6 @@
 package com.orange_infinity.onlinepay.ui.presenter
 
+import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
 import com.orange_infinity.onlinepay.data.db.AppDatabase
@@ -45,12 +46,11 @@ class MainActivityCashPresenter(
                         val chequeDto = response.body()
                         Log.i(MAIN_TAG, "onResponse for payByCash()")
 
-                        if (chequeDto != null) {
+                        if (chequeDto != null) { //TODO("Send info about cheque in BACKEND")
                             Log.i(MAIN_TAG, "Cheque link: ${chequeDto.permalink}")
                             cashChequeManager.processCashTicket(activity.getAppContext(), chequeDto, sellDto.external_id)
-                            //activity.onCashPayed(chequeDto.permalink)
                             if (isMainCheque) {
-                                activity.onCashPayed()
+                                //activity.onCashPayed()
                                 UnsetChequeSender().execute(cashChequeManager)
                             }
                         } else {
@@ -121,10 +121,5 @@ class MainActivityCashPresenter(
                     t.printStackTrace()
                 }
             })
-//        activity.onSetupEnded()
-    }
-
-    fun playPaymentMelody() { // TODO("Перенести в обычный перзентер")
-
     }
 }

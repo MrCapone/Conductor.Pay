@@ -9,7 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.orange_infinity.onlinepay.R
 import com.orange_infinity.onlinepay.daggerConfigurations.MyApplication
 import com.orange_infinity.onlinepay.ui.activities.interfaces.IMainActivity
+import com.orange_infinity.onlinepay.ui.dialogs.CashPaymentSuccessDialog
 import com.orange_infinity.onlinepay.ui.presenter.MainActivityCashPresenter
+import com.orange_infinity.onlinepay.useCase.SUCCESS_PAYMENT_SOUND
+import com.orange_infinity.onlinepay.useCase.SoundPlayer
 import com.orange_infinity.onlinepay.util.getIntValue
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -23,6 +26,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 
     @Inject
     lateinit var cashPresenter: MainActivityCashPresenter
+    lateinit var soundPlayer: SoundPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +43,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         addListeners()
         blockViews()
 
+        soundPlayer = SoundPlayer.getInstance(this)
         cashPresenter.setUpPaymentSystem()
 
 //        tvPaymentDescription.setOnClickListener {
@@ -59,8 +64,9 @@ class MainActivity : AppCompatActivity(), IMainActivity {
     }
 
     override fun onCashPayed() {
-        // DO SMTH
-        cashPresenter.playPaymentMelody()
+        val dialog = CashPaymentSuccessDialog.newInstance()
+        dialog.show(supportFragmentManager, "")
+        soundPlayer.standardPlay(SUCCESS_PAYMENT_SOUND)
     }
 
 
@@ -71,7 +77,6 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 //    }
 
     override fun onCardPayed(link: String) {
-        cashPresenter.playPaymentMelody()
     }
 
     private fun setEnableToAllButtons(isEnable: Boolean) {
