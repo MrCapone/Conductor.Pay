@@ -10,5 +10,6 @@ class CashCheque {
     lateinit var externalId: String
     var timestamp: String? = null
     var permalink: String? = null
+    var cost: Int? = null
     var isSend: Boolean = false
 }

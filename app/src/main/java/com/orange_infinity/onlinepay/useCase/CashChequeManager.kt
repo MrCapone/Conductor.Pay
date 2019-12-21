@@ -14,14 +14,17 @@ class CashChequeManager {
     companion object {
         lateinit var applicationContext: Context
         lateinit var externalId: String
+        var ticketCost: Int = 0
     }
 
     private lateinit var chequeSaver: ChequeSaver
     private lateinit var cashTickerHandler: CashTickerHandler
 
-    fun saveChequeByExternalId(appContext: Context, externalId: String) {
+    fun saveChequeByExternalId(appContext: Context, externalId: String, cost: Int) {
         chequeSaver = ChequeSaver()
         applicationContext = appContext
+        ticketCost = cost
+
         chequeSaver.execute(externalId)
     }
 
@@ -38,6 +41,7 @@ class CashChequeManager {
             val externalId = params[0]
             val cashCheque = CashCheque()
             cashCheque.externalId = externalId
+            cashCheque.cost = ticketCost
 
             Log.i(CASH_CHEQUE_MANAGER_TAG, "Start to save new cashCheque, externalId = $externalId")
             AppDatabase.getInstance(applicationContext).getCashChequeDao().insert(cashCheque)

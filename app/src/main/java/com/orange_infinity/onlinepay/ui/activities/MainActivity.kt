@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.orange_infinity.onlinepay.R
 import com.orange_infinity.onlinepay.daggerConfigurations.MyApplication
 import com.orange_infinity.onlinepay.ui.activities.interfaces.IMainActivity
-import com.orange_infinity.onlinepay.ui.presenter.MainActivityPresenter
+import com.orange_infinity.onlinepay.ui.presenter.MainActivityCashPresenter
 import com.orange_infinity.onlinepay.util.getIntValue
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -22,7 +22,7 @@ private const val CASH_PAYMENT_DESCRIPTION = "НАЛИЧНЫЙ РАСЧЁТ"
 class MainActivity : AppCompatActivity(), IMainActivity {
 
     @Inject
-    lateinit var presenter: MainActivityPresenter
+    lateinit var cashPresenter: MainActivityCashPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,13 +33,17 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         )
 
         (application as MyApplication).appComponent.inject(this)
-        presenter.activity = this
+        MainActivityCashPresenter.activity = this
 
         btnPaymentType.text = CASH_PAYMENT_TYPE
         addListeners()
         blockViews()
 
-        presenter.setUpPaymentSystem()
+        cashPresenter.setUpPaymentSystem()
+
+//        tvPaymentDescription.setOnClickListener {
+//            cashPresenter.sendAllUnsentCheque()
+//        }
     }
 
     private fun blockViews() {
@@ -56,7 +60,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 
     override fun onCashPayed() {
         // DO SMTH
-        presenter.playPayementMelody()
+        cashPresenter.playPaymentMelody()
     }
 
 
@@ -67,7 +71,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 //    }
 
     override fun onCardPayed(link: String) {
-        presenter.playPayementMelody()
+        cashPresenter.playPaymentMelody()
     }
 
     private fun setEnableToAllButtons(isEnable: Boolean) {
@@ -110,7 +114,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         }
 
         btnPayByCash.setOnClickListener {
-            presenter.payByCash(tvCost.text.toString().getIntValue())
+            cashPresenter.payByCash(tvCost.text.toString().getIntValue())
         }
     }
 

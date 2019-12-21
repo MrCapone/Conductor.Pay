@@ -1,8 +1,7 @@
 package com.orange_infinity.onlinepay.daggerConfigurations
 
-import com.orange_infinity.onlinepay.data.db.CashChequeDao
 import com.orange_infinity.onlinepay.data.network.PayInfoService
-import com.orange_infinity.onlinepay.ui.presenter.MainActivityPresenter
+import com.orange_infinity.onlinepay.ui.presenter.MainActivityCashPresenter
 import com.orange_infinity.onlinepay.ui.presenter.RegistrationPresenter
 import com.orange_infinity.onlinepay.useCase.*
 import dagger.Module
@@ -14,7 +13,7 @@ class MainModule {
     @Provides
     fun provideMainActivityPresenter(
         cashChequeManager: CashChequeManager
-    ): MainActivityPresenter = MainActivityPresenter(cashChequeManager = cashChequeManager)
+    ): MainActivityCashPresenter = MainActivityCashPresenter(cashChequeManager = cashChequeManager)
 
     @Provides
     fun provideRegistrationActivityPresenter(serverEntryController: ServerEntryController): RegistrationPresenter

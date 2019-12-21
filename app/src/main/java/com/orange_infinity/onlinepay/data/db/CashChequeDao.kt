@@ -17,4 +17,10 @@ interface CashChequeDao {
 
     @Query("SELECT * FROM CashCheque")
     fun findAll(): List<CashCheque>
+
+    @Query("SELECT * FROM CashCheque WHERE isSend = :isSend")
+    fun findAllBySent(isSend: Boolean): List<CashCheque>
+
+    @Query("SELECT * FROM CashCheque WHERE isSend = :isSend LIMIT 1")
+    fun findOneChequeTicket(isSend: Boolean = false): CashCheque?
 }

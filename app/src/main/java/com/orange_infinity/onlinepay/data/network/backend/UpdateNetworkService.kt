@@ -1,5 +1,6 @@
 package com.orange_infinity.onlinepay.data.network.backend
 
+import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -11,9 +12,12 @@ class UpdateNetworkService {
     private var retrofit: Retrofit
 
     init {
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
         retrofit = Retrofit.Builder()
             .baseUrl(MY_BACKEND_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 
