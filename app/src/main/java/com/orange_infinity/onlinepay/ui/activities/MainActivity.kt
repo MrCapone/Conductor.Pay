@@ -1,6 +1,9 @@
 package com.orange_infinity.onlinepay.ui.activities
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -9,12 +12,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.orange_infinity.onlinepay.R
 import com.orange_infinity.onlinepay.daggerConfigurations.MyApplication
 import com.orange_infinity.onlinepay.ui.activities.interfaces.IMainActivity
+import com.orange_infinity.onlinepay.ui.dialogs.CardInfoDialog
 import com.orange_infinity.onlinepay.ui.dialogs.CashPaymentSuccessDialog
 import com.orange_infinity.onlinepay.ui.presenter.MainActivityCashPresenter
 import com.orange_infinity.onlinepay.useCase.SUCCESS_PAYMENT_SOUND
 import com.orange_infinity.onlinepay.useCase.SoundPlayer
+import com.orange_infinity.onlinepay.util.formatCardNumber
 import com.orange_infinity.onlinepay.util.getIntValue
+import io.github.tapcard.android.NFCCardReader
+import io.github.tapcard.emvnfccard.model.EmvCard
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.IOException
 import javax.inject.Inject
 
 private const val CASH_PAYMENT_TYPE = "Наличными"
@@ -27,6 +35,8 @@ class MainActivity : AppCompatActivity(), IMainActivity {
     @Inject
     lateinit var cashPresenter: MainActivityCashPresenter
     lateinit var soundPlayer: SoundPlayer
+
+    private lateinit var nfcCardReader: NFCCardReader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +59,67 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 //        tvPaymentDescription.setOnClickListener {
 //            cashPresenter.sendAllUnsentCheque()
 //        }
+
+        nfcCardReader = NFCCardReader(this)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        if (nfcCardReader.isSuitableIntent(intent)) {
+            readCardDataAsync(intent)
+        }
+    }
+
+    override fun onResume() {
+        nfcCardReader.enableDispatch()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        nfcCardReader.disableDispatch()
+        super.onPause()
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private fun readCardDataAsync(intent: Intent) {
+        object : AsyncTask<Intent, Any, EmvCard>() {
+
+            override fun doInBackground(vararg intents: Intent): EmvCard? {
+                try {
+                    return nfcCardReader.readCardBlocking(intents[0])
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    //throw RuntimeException("IOException!")
+                } catch (e: NFCCardReader.WrongIntentException) {
+                    e.printStackTrace()
+                    //throw RuntimeException("NFCCardReader.WrongIntentException!")
+                } catch (e: NFCCardReader.WrongTagTech) {
+                    e.printStackTrace()
+                    //throw RuntimeException("NFCCardReader.WrongTagTech!")
+                }
+
+                return null
+            }
+
+            override fun onPostExecute(emvCard: EmvCard) {
+                showCardInfo(emvCard)
+            }
+        }.execute(intent)
+    }
+
+    private fun showCardInfo(card: EmvCard?) {
+        val cardInfo: String
+
+        cardInfo = if (card != null) {
+            "Your card info:\n" +
+                    "cardNumber: ${formatCardNumber(card.cardNumber, card.type)}\n" +
+                    "expired date: ${card.expireDate}\n" +
+                    "card holder: ${card.holderLastname} ${card.holderFirstname}"
+        } else {
+            "Error while reading card data :( \n Try again."
+        }
+        val dialog = CardInfoDialog.newInstance(cardInfo)
+        dialog.show(supportFragmentManager, "")
     }
 
     private fun blockViews() {
@@ -132,6 +203,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         tvPaymentDescription.text = CASH_PAYMENT_DESCRIPTION
         tvPaymentDescription.textSize = 24f
         tvPaymentDescription.gravity = Gravity.CENTER
+        nfcCardReader.enableDispatch()
     }
 
     private fun changeCardToCash() {
@@ -143,5 +215,6 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         tvPaymentDescription.text = CARD_PAYMENT_DESCRIPTION
         tvPaymentDescription.textSize = 18f
         tvPaymentDescription.gravity = Gravity.START
+        nfcCardReader.disableDispatch()
     }
 }
