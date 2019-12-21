@@ -44,4 +44,8 @@ class MyBackendNetworkService {
     fun getCashChequePlaceHolderApi(): CashChequePlaceHolderApi {
         return retrofit.create(CashChequePlaceHolderApi::class.java)
     }
+
+    fun getRegistratePlaceHolderApi(): RegistratePlaceHolderApi {
+        return retrofit.create(RegistratePlaceHolderApi::class.java)
+    }
 }

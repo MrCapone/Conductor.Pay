@@ -13,6 +13,7 @@ import com.orange_infinity.onlinepay.entities.model.Token
 import com.orange_infinity.onlinepay.ui.activities.interfaces.IMainActivity
 import com.orange_infinity.onlinepay.useCase.CashChequeManager
 import com.orange_infinity.onlinepay.util.MAIN_TAG
+import com.orange_infinity.onlinepay.util.getPseudoId
 import io.reactivex.rxjava3.annotations.NonNull
 import retrofit2.Call
 import retrofit2.Callback
@@ -68,6 +69,7 @@ class MainActivityCashPresenter(
 
         private fun sendCashChequeToBackend(chequeDto: ChequeDto, ticketCost: Int) {
             chequeDto.cost = ticketCost
+            chequeDto.deviceId = getPseudoId()
             MyBackendNetworkService.getInstance()
                 .getCashChequePlaceHolderApi()
                 .saveCheque(chequeDto)

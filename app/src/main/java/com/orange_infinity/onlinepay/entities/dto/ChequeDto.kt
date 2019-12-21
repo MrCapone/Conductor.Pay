@@ -1,5 +1,7 @@
 package com.orange_infinity.onlinepay.entities.dto
 
+import com.orange_infinity.onlinepay.util.getPseudoId
+
 class ChequeDto {
 
     lateinit var uuid: String
@@ -8,4 +10,5 @@ class ChequeDto {
     lateinit var permalink: String
     lateinit var kind: String
     var cost: Int = 0
+    var deviceId = getPseudoId()
 }
