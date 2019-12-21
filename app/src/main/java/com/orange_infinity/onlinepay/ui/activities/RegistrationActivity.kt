@@ -18,6 +18,7 @@ import com.orange_infinity.onlinepay.daggerConfigurations.MyApplication
 import com.orange_infinity.onlinepay.ui.activities.interfaces.DownloaderActivity
 import com.orange_infinity.onlinepay.ui.dialogs.DownloadDialog
 import com.orange_infinity.onlinepay.ui.presenter.RegistrationPresenter
+import com.orange_infinity.onlinepay.util.getProgramVersion
 import kotlinx.android.synthetic.main.activity_registration.*
 import java.io.File
 import javax.inject.Inject
@@ -51,6 +52,8 @@ class RegistrationActivity : AppCompatActivity(),
                 startActivity(intent)
             }
         }
+
+        tvAppVersion.text = "Версия приложения: ${getProgramVersion()}"
     }
 
     private fun handleNetwork() {
