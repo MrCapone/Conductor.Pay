@@ -1,7 +1,7 @@
 package com.orange_infinity.onlinepay.ui.presenter
 
+import android.content.Context
 import android.os.AsyncTask
-import android.os.Build
 import android.os.Environment
 import android.util.Log
 import android.widget.Toast
@@ -54,10 +54,10 @@ class RegistrationPresenter(
     private fun loadApk(apkUrl: String) {
         try {
             val url = URL(apkUrl)
-            val c = url.openConnection() as HttpURLConnection
-            c.requestMethod = "GET"
-            c.doOutput = true
-            c.connect()
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.doOutput = true
+            connection.connect()
 
             val filePath = "${Environment.getExternalStorageDirectory()}/download/"
             val file = File(filePath)
@@ -65,7 +65,7 @@ class RegistrationPresenter(
             val outputFile = File(file, "app.apk")
             val fos = FileOutputStream(outputFile)
 
-            val inputStream = c.inputStream
+            val inputStream = connection.inputStream
 
             val buffer = ByteArray(1024)
             var len1 = inputStream.read(buffer)
@@ -87,9 +87,8 @@ class RegistrationPresenter(
         serverEntryController.isNeedUpdateProgram(this)
     }
 
-    // TODO("Change pseudoId to IMEI")
-    fun sendSignInInfoToServer() {
-        val pseudoID = getPseudoId()
+    fun sendSignInInfoToServer(context: Context) {
+        val pseudoID = getPseudoId(context)
         Log.i(MAIN_TAG, "pseudoId: $pseudoID")
 
         if (serverEntryController.signIn(pseudoID)) {

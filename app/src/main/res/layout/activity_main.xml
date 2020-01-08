@@ -93,7 +93,7 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="44sp"
                 android:textStyle="bold"
-                android:text="21 РУБЛЬ"/>
+                android:text="22 РУБЛЯ"/>
 
 
             <TextView
@@ -154,7 +154,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:background="@drawable/mini_button_style"
-                    android:text="18"/>
+                    android:text="19"/>
 
                 <Button
                     android:id="@+id/btnRight"

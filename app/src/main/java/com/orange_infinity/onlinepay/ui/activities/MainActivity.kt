@@ -63,6 +63,9 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         nfcCardReader = NFCCardReader(this)
     }
 
+    override fun onBackPressed() {
+    }
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         if (nfcCardReader.isSuitableIntent(intent)) {
@@ -163,10 +166,10 @@ class MainActivity : AppCompatActivity(), IMainActivity {
             val mainNum = Integer.parseInt(tvCost.text.toString().subSequence(0, 2).toString())
             val btnNum = Integer.parseInt(btnLeft.text.toString())
             btnLeft.text = mainNum.toString()
-            if (btnNum != 21) {
+            if (btnNum != 22) {
                 tvCost.text = "$btnNum рублей"
             } else {
-                tvCost.text = "$btnNum рубль"
+                tvCost.text = "$btnNum рубля"
             }
         }
 
@@ -174,10 +177,10 @@ class MainActivity : AppCompatActivity(), IMainActivity {
             val mainNum = Integer.parseInt(tvCost.text.toString().subSequence(0, 2).toString())
             val btnNum = Integer.parseInt(btnRight.text.toString())
             btnRight.text = mainNum.toString()
-            if (btnNum != 21) {
+            if (btnNum != 22) {
                 tvCost.text = "$btnNum рублей"
             } else {
-                tvCost.text = "$btnNum рубль"
+                tvCost.text = "$btnNum рубля"
             }
         }
 

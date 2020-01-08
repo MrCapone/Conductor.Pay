@@ -1,5 +1,6 @@
 package com.orange_infinity.onlinepay.ui.presenter
 
+import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
 import com.orange_infinity.onlinepay.data.db.AppDatabase
@@ -38,7 +39,7 @@ class MainActivityCashPresenter(
             return sellDto
         }
 
-        private fun sendCheque(sellDto: SellDto, cashChequeManager: CashChequeManager, isMainCheque: Boolean) {
+        private fun sendCheque(sellDto: SellDto, cashChequeManager: CashChequeManager, isMainCheque: Boolean, context: Context) {
             EcomNetworkService.getInstance()
                 .getCreateSellPlaceHolderApi()
                 .createCell(sellDto, Token.token!!)
@@ -69,7 +70,7 @@ class MainActivityCashPresenter(
 
         private fun sendCashChequeToBackend(chequeDto: ChequeDto, ticketCost: Int) {
             chequeDto.cost = ticketCost
-            chequeDto.deviceId = getPseudoId()
+            chequeDto.deviceId = getPseudoId(activity.getAppContext())
             MyBackendNetworkService.getInstance()
                 .getCashChequePlaceHolderApi()
                 .saveCheque(chequeDto)
@@ -94,7 +95,7 @@ class MainActivityCashPresenter(
         val sellDto = buildSellDto(cost)
         activity.onCashPayed()
         cashChequeManager.saveChequeByExternalId(activity.getAppContext(), sellDto.external_id, cost)
-        sendCheque(sellDto, cashChequeManager, true)
+        sendCheque(sellDto, cashChequeManager, true, activity.getAppContext())
     }
 
     class UnsetChequeSender : AsyncTask<CashChequeManager, Unit, Unit>() {
@@ -106,7 +107,7 @@ class MainActivityCashPresenter(
 
             val sellDto = buildSellDto(unsentCheque.cost ?: 21)
             sellDto.external_id = unsentCheque.externalId
-            sendCheque(sellDto, cashChequeManager, false)
+            sendCheque(sellDto, cashChequeManager, false, activity.getAppContext())
         }
 
     }

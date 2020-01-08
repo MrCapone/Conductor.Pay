@@ -54,12 +54,12 @@ class RegistrationActivity : AppCompatActivity(),
             }
         }
 
-        tvAppVersion.text = "Версия приложения: ${getProgramVersion()}, deviceId: ${getPseudoId()}"
+        tvAppVersion.text = "Версия приложения: ${getProgramVersion()}, deviceId: ${getPseudoId(this)}"
     }
 
     private fun handleNetwork() {
         presenter.updateProgram()
-        presenter.sendSignInInfoToServer()
+        presenter.sendSignInInfoToServer(this)
     }
 
     private fun requestPermission(context: Activity) {

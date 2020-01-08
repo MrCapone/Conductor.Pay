@@ -4,7 +4,8 @@ import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val MY_BACKEND_URL = "http://kolyanpie.ddns.net:8095"
+//private const val MY_BACKEND_URL = "http://kolyanpie.ddns.net:8095"
+private const val MY_BACKEND_URL = "http://212.192.123.3:8090"
 //private const val MY_BACKEND_URL = "http://601625ac.ngrok.io:8090"
 
 class MyBackendNetworkService {
