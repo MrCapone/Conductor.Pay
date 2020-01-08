@@ -19,9 +19,13 @@ import com.orange_infinity.onlinepay.useCase.SUCCESS_PAYMENT_SOUND
 import com.orange_infinity.onlinepay.useCase.SoundPlayer
 import com.orange_infinity.onlinepay.util.formatCardNumber
 import com.orange_infinity.onlinepay.util.getIntValue
+import com.orange_infinity.onlinepay.util.getProgramVersion
+import com.orange_infinity.onlinepay.util.getPseudoId
 import io.github.tapcard.android.NFCCardReader
 import io.github.tapcard.emvnfccard.model.EmvCard
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.tvAppVersion
+import kotlinx.android.synthetic.main.activity_registration.*
 import java.io.IOException
 import javax.inject.Inject
 
@@ -62,6 +66,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 
         nfcCardReader = NFCCardReader(this)
         changeCashToCard()
+        tvAppVersion.text = "Версия приложения: ${getProgramVersion()}, deviceId: ${getPseudoId(this)}"
     }
 
     override fun onBackPressed() {
