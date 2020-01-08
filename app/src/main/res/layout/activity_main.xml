@@ -50,7 +50,7 @@
                     android:layout_gravity="center"
                     android:textStyle="bold"
                     android:textSize="18sp"
-                    android:text="Прислоните карту или телефон для оплаты проезда:"/>
+                    android:text="Прислоните карту для оплаты проезда:"/>
 
             </LinearLayout>
 

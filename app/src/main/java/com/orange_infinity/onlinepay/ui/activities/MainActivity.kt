@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 private const val CASH_PAYMENT_TYPE = "Наличными"
 private const val CARD_PAYMENT_TYPE = "Оплата картой"
-private const val CARD_PAYMENT_DESCRIPTION = "Прислоните карту или телефон для оплаты проезда:"
+private const val CARD_PAYMENT_DESCRIPTION = "Прислоните карту для оплаты проезда:"
 private const val CASH_PAYMENT_DESCRIPTION = "НАЛИЧНЫЙ РАСЧЁТ"
 
 class MainActivity : AppCompatActivity(), IMainActivity {
@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 //        }
 
         nfcCardReader = NFCCardReader(this)
+        changeCashToCard()
     }
 
     override fun onBackPressed() {
