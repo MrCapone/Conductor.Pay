@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
     lateinit var cashPresenter: MainActivityCashPresenter
     lateinit var soundPlayer: SoundPlayer
 
-    private lateinit var nfcCardReader: NFCCardReader
+    //private lateinit var nfcCardReader: NFCCardReader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 //            cashPresenter.sendAllUnsentCheque()
 //        }
 
-        nfcCardReader = NFCCardReader(this)
+        //nfcCardReader = NFCCardReader(this)
         changeCashToCard()
         tvAppVersion.text = "Версия приложения: ${getProgramVersion()}, deviceId: ${getPseudoId(this)}"
     }
@@ -74,47 +74,47 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        if (nfcCardReader.isSuitableIntent(intent)) {
-            readCardDataAsync(intent)
-        }
+//        if (nfcCardReader.isSuitableIntent(intent)) {
+//            readCardDataAsync(intent)
+//        }
     }
 
     override fun onResume() {
-        nfcCardReader.enableDispatch()
+        //nfcCardReader.enableDispatch()
         super.onResume()
     }
 
     override fun onPause() {
-        nfcCardReader.disableDispatch()
+        //nfcCardReader.disableDispatch()
         super.onPause()
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private fun readCardDataAsync(intent: Intent) {
-        object : AsyncTask<Intent, Any, EmvCard>() {
-
-            override fun doInBackground(vararg intents: Intent): EmvCard? {
-                try {
-                    return nfcCardReader.readCardBlocking(intents[0])
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    //throw RuntimeException("IOException!")
-                } catch (e: NFCCardReader.WrongIntentException) {
-                    e.printStackTrace()
-                    //throw RuntimeException("NFCCardReader.WrongIntentException!")
-                } catch (e: NFCCardReader.WrongTagTech) {
-                    e.printStackTrace()
-                    //throw RuntimeException("NFCCardReader.WrongTagTech!")
-                }
-
-                return null
-            }
-
-            override fun onPostExecute(emvCard: EmvCard) {
-                showCardInfo(emvCard)
-            }
-        }.execute(intent)
-    }
+//    @SuppressLint("StaticFieldLeak")
+//    private fun readCardDataAsync(intent: Intent) {
+//        object : AsyncTask<Intent, Any, EmvCard>() {
+//
+//            override fun doInBackground(vararg intents: Intent): EmvCard? {
+//                try {
+//                    return nfcCardReader.readCardBlocking(intents[0])
+//                } catch (e: IOException) {
+//                    e.printStackTrace()
+//                    //throw RuntimeException("IOException!")
+//                } catch (e: NFCCardReader.WrongIntentException) {
+//                    e.printStackTrace()
+//                    //throw RuntimeException("NFCCardReader.WrongIntentException!")
+//                } catch (e: NFCCardReader.WrongTagTech) {
+//                    e.printStackTrace()
+//                    //throw RuntimeException("NFCCardReader.WrongTagTech!")
+//                }
+//
+//                return null
+//            }
+//
+//            override fun onPostExecute(emvCard: EmvCard) {
+//                showCardInfo(emvCard)
+//            }
+//        }.execute(intent)
+//    }
 
     private fun showCardInfo(card: EmvCard?) {
         val cardInfo: String
@@ -212,7 +212,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         tvPaymentDescription.text = CASH_PAYMENT_DESCRIPTION
         tvPaymentDescription.textSize = 24f
         tvPaymentDescription.gravity = Gravity.CENTER
-        nfcCardReader.enableDispatch()
+        //nfcCardReader.enableDispatch()
     }
 
     private fun changeCardToCash() {
@@ -224,6 +224,6 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         tvPaymentDescription.text = CARD_PAYMENT_DESCRIPTION
         tvPaymentDescription.textSize = 18f
         tvPaymentDescription.gravity = Gravity.START
-        nfcCardReader.disableDispatch()
+        //nfcCardReader.disableDispatch()
     }
 }

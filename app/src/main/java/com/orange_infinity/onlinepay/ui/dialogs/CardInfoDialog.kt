@@ -28,8 +28,8 @@ class CardInfoDialog : DialogFragment() {
         val v = LayoutInflater.from(context).inflate(R.layout.dialog_card_info, null)
 
         //tvCardInfo.text = cardInfo
-        tvCardInfo.text = "Установка связи..."
-        fakeReading()
+//        tvCardInfo.text = "Установка связи..."
+//        fakeReading()
 
         return AlertDialog.Builder(activity)
             .setView(v)
