@@ -8,7 +8,6 @@ import com.orange_infinity.onlinepay.util.convertStringToQr
 import com.orange_infinity.onlinepay.util.convertPxToDp
 import kotlinx.android.synthetic.main.activity_success_payed.*
 
-
 const val CHEQUE_LINK_KEY = "chequeLinkKey"
 
 class SuccessPayedActivity : AppCompatActivity() {

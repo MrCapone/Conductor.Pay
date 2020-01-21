@@ -7,9 +7,10 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.orange_infinity.onlinepay"
-        minSdkVersion 21
+        minSdkVersion 15
+        multiDexEnabled true
         targetSdkVersion 28
-        versionCode 6
+        versionCode 7
         versionName "1.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -51,6 +52,7 @@ dependencies {
 
     // Yandex
     //implementation 'com.yandex.money:checkout:2.4.0'
+    implementation 'com.yandex.money:checkout:3.0.1'
 
     //implementation 'io.card:android-sdk:5.5.1'
 
@@ -68,4 +70,6 @@ dependencies {
 
     // NFC
     implementation 'com.github.TapCard.TapCard:android:master-SNAPSHOT'
+
+    implementation 'com.android.support:multidex:1.0.3'
 }

@@ -93,7 +93,7 @@ class MainActivityCashPresenter(
         setUpPaymentSystem()
 
         val sellDto = buildSellDto(cost)
-        activity.onCashPayed()
+        activity.onCashPayed(sellDto.external_id)
         cashChequeManager.saveChequeByExternalId(activity.getAppContext(), sellDto.external_id, cost)
         sendCheque(sellDto, cashChequeManager, true, activity.getAppContext())
     }

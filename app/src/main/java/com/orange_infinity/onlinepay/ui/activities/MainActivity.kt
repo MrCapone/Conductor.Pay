@@ -1,6 +1,7 @@
 package com.orange_infinity.onlinepay.ui.activities
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
@@ -28,11 +29,24 @@ import kotlinx.android.synthetic.main.activity_main.tvAppVersion
 import kotlinx.android.synthetic.main.activity_registration.*
 import java.io.IOException
 import javax.inject.Inject
+import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import ru.yandex.money.android.sdk.*
+import java.math.BigDecimal
+import java.util.*
+import ru.yandex.money.android.sdk.Checkout
+import ru.yandex.money.android.sdk.MockConfiguration
+import ru.yandex.money.android.sdk.TestParameters
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
 
 private const val CASH_PAYMENT_TYPE = "Наличными"
 private const val CARD_PAYMENT_TYPE = "Оплата картой"
 private const val CARD_PAYMENT_DESCRIPTION = "Прислоните карту для оплаты проезда:"
 private const val CASH_PAYMENT_DESCRIPTION = "НАЛИЧНЫЙ РАСЧЁТ"
+private const val REQUEST_CODE_TOKENIZE = 0
 
 class MainActivity : AppCompatActivity(), IMainActivity {
 
@@ -91,7 +105,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 
 //    @SuppressLint("StaticFieldLeak")
 //    private fun readCardDataAsync(intent: Intent) {
-//        object : AsyncTask<Intent, Any, EmvCard>() {
+//        object : AsyncTask<Intent, Any, EmvCard>() {intent
 //
 //            override fun doInBackground(vararg intents: Intent): EmvCard? {
 //                try {
@@ -143,10 +157,13 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         setEnableToAllButtons(true)
     }
 
-    override fun onCashPayed() {
-        val dialog = CashPaymentSuccessDialog.newInstance()
-        dialog.show(supportFragmentManager, "")
+    override fun onCashPayed(externalId: String) {
+        //val dialog = CashPaymentSuccessDialog.newInstance()
+        //dialog.show(supportFragmentManager, "")
         soundPlayer.standardPlay(SUCCESS_PAYMENT_SOUND)
+        val intent = Intent(this, SuccessPayedActivity::class.java)
+        intent.putExtra(CHEQUE_LINK_KEY, externalId)
+        startActivity(intent)
     }
 
 
@@ -199,7 +216,47 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         }
 
         btnPayByCash.setOnClickListener {
-            cashPresenter.payByCash(tvCost.text.toString().getIntValue())
+            if (btnPaymentType.text == CARD_PAYMENT_TYPE) {
+                cashPresenter.payByCash(tvCost.text.toString().getIntValue())
+            } else {
+                val mainNum = Integer.parseInt(tvCost.text.toString().subSequence(0, 2).toString())
+                val paymentParameters = PaymentParameters(
+                    Amount(BigDecimal.valueOf(mainNum.toDouble()), Currency.getInstance("RUB")),
+                    "Билет",
+                    "Описание билета",
+                    "test_NjYxNjkwz4AWvgemOP9PTIAzalQMczCDg8x33xlYwhg",
+                    "661690",
+                    SavePaymentMethod.ON,
+                    paymentMethodTypes = setOf(PaymentMethodType.BANK_CARD)
+                )
+                val testParameters = TestParameters(
+                    showLogs = true,
+                    googlePayTestEnvironment = true,
+                    mockConfiguration = MockConfiguration(
+                        completeWithError = false,
+                        paymentAuthPassed = true,
+                        linkedCardsCount = 5
+                    )
+                )
+                val intent = Checkout.createTokenizeIntent(this, paymentParameters, testParameters)
+                startActivityForResult(intent, REQUEST_CODE_TOKENIZE)
+//                val intent = Checkout.createTokenizeIntent(this, paymentParameters)
+//                startActivityForResult(intent, REQUEST_CODE_TOKENIZE)
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_TOKENIZE) {
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    val result = Checkout.createTokenizationResult(data!!)
+                }
+                Activity.RESULT_CANCELED -> {
+
+                }
+            }
         }
     }
 
@@ -216,7 +273,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
     }
 
     private fun changeCardToCash() {
-        btnPayByCash.visibility = View.GONE
+        //btnPayByCash.visibility = View.GONE
         btnPaymentType.text = CASH_PAYMENT_TYPE
         btnPaymentType.textSize = 20f
 

@@ -8,7 +8,7 @@ interface IMainActivity {
 
     //fun onCashPayed(link: String)
 
-    fun onCashPayed()
+    fun onCashPayed(externalId: String)
 
     fun onCardPayed(link: String)
 

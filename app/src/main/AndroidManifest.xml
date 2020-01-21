@@ -8,12 +8,10 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.NFC"/>
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.QUICKBOOT_POWERON"/>
 
     <uses-feature android:name="android.hardware.nfc"/>
 
@@ -26,6 +24,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <activity android:name=".ui.activities.CardReaderActivity">
+            <intent-filter>
+                <action android:name="ru.yandex.money.android.sdk.action.SCAN_BANK_CARD"/>
+            </intent-filter>
+        </activity>
 
         <activity android:name=".ui.activities.RegistrationActivity">
             <intent-filter>
@@ -42,28 +46,24 @@
         <activity android:name=".ui.activities.MainActivity">
         </activity>
 
-        <provider
-            android:name=".data.MyProvider"
-            android:authorities="com.orange_infinity.onlinepay.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
-        </provider>
-
-        <!--<receiver android:enabled="true" android:name=".useCase.receiver.BootReceiver"-->
-                  <!--android:permission="android.permission.RECEIVE_BOOT_COMPLETED">-->
-
-        <receiver android:name=".useCase.receiver.BootReceiver" >
+        <!--<provider-->
+            <!--android:name=".data.MyProvider"-->
+            <!--android:authorities="com.orange_infinity.onlinepay.provider"-->
+            <!--android:exported="false"-->
+            <!--android:grantUriPermissions="true">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+                <!--android:resource="@xml/provider_paths"/>-->
+        <!--</provider> &lt;!&ndash; <receiver android:enabled="true" android:name=".useCase.receiver.BootReceiver" &ndash;&gt;-->
+        <!-- android:permission="android.permission.RECEIVE_BOOT_COMPLETED"> -->
+        <receiver android:name=".useCase.receiver.BootReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+                <!-- <category android:name="android.intent.category.DEFAULT" /> -->
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>
