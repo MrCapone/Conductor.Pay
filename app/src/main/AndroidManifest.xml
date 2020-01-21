@@ -54,14 +54,15 @@
         <!-- android:resource="@xml/provider_paths"/> -->
         <!-- </provider> &lt;!&ndash; <receiver android:enabled="true" android:name=".useCase.receiver.BootReceiver" &ndash;&gt; -->
         <!-- android:permission="android.permission.RECEIVE_BOOT_COMPLETED"> -->
+
         <receiver android:name=".useCase.receiver.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
                 <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
-                <!-- <category android:name="android.intent.category.DEFAULT" /> -->
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

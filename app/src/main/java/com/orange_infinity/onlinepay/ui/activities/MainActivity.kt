@@ -63,6 +63,8 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         soundPlayer = SoundPlayer.getInstance(this)
         cashPresenter.setUpPaymentSystem()
 
+        startLockTask()
+
 //        tvPaymentDescription.setOnClickListener {
 //            cashPresenter.sendAllUnsentCheque()
 //        }

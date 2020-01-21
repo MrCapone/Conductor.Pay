@@ -30,6 +30,9 @@ class SuccessPayedActivity : AppCompatActivity() {
             goToCheque()
         }
 
+        tcCheque.setOnClickListener {
+        }
+
         timer = Timer()
         timerTask = FinishActivityTimerTask(this)
         timer.schedule(timerTask, 5000)
