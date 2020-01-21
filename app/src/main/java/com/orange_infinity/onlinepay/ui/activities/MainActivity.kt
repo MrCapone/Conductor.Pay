@@ -1,10 +1,8 @@
 package com.orange_infinity.onlinepay.ui.activities
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -14,7 +12,6 @@ import com.orange_infinity.onlinepay.R
 import com.orange_infinity.onlinepay.daggerConfigurations.MyApplication
 import com.orange_infinity.onlinepay.ui.activities.interfaces.IMainActivity
 import com.orange_infinity.onlinepay.ui.dialogs.CardInfoDialog
-import com.orange_infinity.onlinepay.ui.dialogs.CashPaymentSuccessDialog
 import com.orange_infinity.onlinepay.ui.presenter.MainActivityCashPresenter
 import com.orange_infinity.onlinepay.useCase.SUCCESS_PAYMENT_SOUND
 import com.orange_infinity.onlinepay.useCase.SoundPlayer
@@ -22,24 +19,16 @@ import com.orange_infinity.onlinepay.util.formatCardNumber
 import com.orange_infinity.onlinepay.util.getIntValue
 import com.orange_infinity.onlinepay.util.getProgramVersion
 import com.orange_infinity.onlinepay.util.getPseudoId
-import io.github.tapcard.android.NFCCardReader
 import io.github.tapcard.emvnfccard.model.EmvCard
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.tvAppVersion
-import kotlinx.android.synthetic.main.activity_registration.*
-import java.io.IOException
 import javax.inject.Inject
-import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import ru.yandex.money.android.sdk.*
 import java.math.BigDecimal
 import java.util.*
 import ru.yandex.money.android.sdk.Checkout
 import ru.yandex.money.android.sdk.MockConfiguration
 import ru.yandex.money.android.sdk.TestParameters
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
 private const val CASH_PAYMENT_TYPE = "Наличными"
@@ -168,7 +157,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 
 
 //    override fun onCashPayed(link: String) {
-//        val intent = Intent(this, SuccessPayedActivity::class.java)
+//        val intent = Intent(this, QrCodeActivity::class.java)
 //        intent.putExtra(CHEQUE_LINK_KEY, link)
 //        startActivity(intent)
 //    }

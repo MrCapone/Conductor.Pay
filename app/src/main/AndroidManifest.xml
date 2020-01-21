@@ -24,13 +24,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".ui.activities.QrCodeActivity">
+        </activity>
+        <activity android:name=".ui.activities.SuccessPayedActivity">
+        </activity>
         <activity android:name=".ui.activities.CardReaderActivity">
             <intent-filter>
                 <action android:name="ru.yandex.money.android.sdk.action.SCAN_BANK_CARD"/>
             </intent-filter>
         </activity>
-
         <activity android:name=".ui.activities.RegistrationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -38,23 +40,19 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.SuccessPayedActivity">
-        </activity>
         <activity android:name=".ui.activities.PayActivity"/>
         <activity android:name=".ui.activities.SettingsActivity">
         </activity>
         <activity android:name=".ui.activities.MainActivity">
-        </activity>
-
-        <!--<provider-->
-            <!--android:name=".data.MyProvider"-->
-            <!--android:authorities="com.orange_infinity.onlinepay.provider"-->
-            <!--android:exported="false"-->
-            <!--android:grantUriPermissions="true">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-                <!--android:resource="@xml/provider_paths"/>-->
-        <!--</provider> &lt;!&ndash; <receiver android:enabled="true" android:name=".useCase.receiver.BootReceiver" &ndash;&gt;-->
+        </activity> <!-- <provider -->
+        <!-- android:name=".data.MyProvider" -->
+        <!-- android:authorities="com.orange_infinity.onlinepay.provider" -->
+        <!-- android:exported="false" -->
+        <!-- android:grantUriPermissions="true"> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.support.FILE_PROVIDER_PATHS" -->
+        <!-- android:resource="@xml/provider_paths"/> -->
+        <!-- </provider> &lt;!&ndash; <receiver android:enabled="true" android:name=".useCase.receiver.BootReceiver" &ndash;&gt; -->
         <!-- android:permission="android.permission.RECEIVE_BOOT_COMPLETED"> -->
         <receiver android:name=".useCase.receiver.BootReceiver">
             <intent-filter>

@@ -15,50 +15,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tvQrCode"
+        app:layout_constraintBottom_toTopOf="@id/layoutTicket"
         android:textColor="@color/colorWhite"
         android:textSize="32sp"
         android:textStyle="bold"
         android:text="УСПЕШНО!"/>
 
-
-    <TextView
-        android:id="@+id/tvQrCode"
+    <FrameLayout
+        android:id="@+id/layoutTicket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/centerSeparator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSuccess"
-        android:background="@drawable/white_background_selector"
-        android:padding="32dp"
-        android:textColor="@color/colorBlack"
-        android:textSize="26sp"
-        android:text="Показать QR-код"/>
+        app:layout_constraintBottom_toTopOf="@id/btnBack">
 
-    <View
-        android:id="@+id/centerSeparator"
-        android:layout_width="match_parent"
-        android:layout_height="16dp"
-        android:background="@color/colorWhite"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_gravity="center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:background="@color/colorWhite"
+            android:layout_gravity="center"/>
 
+        <ImageView
+            android:id="@+id/imgQrExample"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:padding="12dp"/>
 
-    <TextView
-        android:id="@+id/tcCheque"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/centerSeparator"
-        app:layout_constraintBottom_toTopOf="@id/btnBack"
-        android:background="@drawable/white_background_selector"
-        android:padding="32dp"
-        android:textColor="@color/colorBlack"
-        android:textSize="26sp"
-        android:text="Распечатать текст"/>
+    </FrameLayout>
 
 
     <Button
@@ -71,7 +56,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tcCheque"
+        app:layout_constraintTop_toBottomOf="@id/layoutTicket"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:textStyle="bold"
