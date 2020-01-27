@@ -15,5 +15,7 @@ class MyApplication : Application() {
 
         val builder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
+
+        //Printooth.init(this)
     }
 }
