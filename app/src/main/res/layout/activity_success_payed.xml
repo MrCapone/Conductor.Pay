@@ -58,7 +58,7 @@
         android:padding="32dp"
         android:textColor="@color/colorBlack"
         android:textSize="26sp"
-        android:text="Распечатать текст"/>
+        android:text="Распечатать чек"/>
 
 
     <Button
