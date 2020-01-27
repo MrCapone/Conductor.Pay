@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import com.orange_infinity.onlinepay.R
+import com.orange_infinity.onlinepay.util.PrintHelper
 import kotlinx.android.synthetic.main.activity_success_payed.*
 import java.util.*
 
@@ -14,6 +15,8 @@ class SuccessPayedActivity : AppCompatActivity() {
     private lateinit var timer: Timer
     private lateinit var timerTask: TimerTask
 
+    private lateinit var printHelper: PrintHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_success_payed)
@@ -21,6 +24,8 @@ class SuccessPayedActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
+
+        printHelper = PrintHelper(this)
 
         btnBack.setOnClickListener {
             finish()
@@ -31,6 +36,7 @@ class SuccessPayedActivity : AppCompatActivity() {
         }
 
         tcCheque.setOnClickListener {
+            printHelper.printText()
         }
 
         timer = Timer()
@@ -49,6 +55,7 @@ class SuccessPayedActivity : AppCompatActivity() {
     private inner class FinishActivityTimerTask(val activity: Activity) : TimerTask() {
 
         override fun run() {
+            printHelper.removeHelper(activity)
             activity.finish()
         }
     }
