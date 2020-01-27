@@ -9,6 +9,11 @@ import com.orange_infinity.onlinepay.R
 import com.orange_infinity.onlinepay.util.PrintHelper
 import kotlinx.android.synthetic.main.activity_success_payed.*
 import java.util.*
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class SuccessPayedActivity : AppCompatActivity() {
 
@@ -25,7 +30,7 @@ class SuccessPayedActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        printHelper = PrintHelper(this)
+        printHelper = PrintHelper().createHelper(this)
 
         btnBack.setOnClickListener {
             finish()
@@ -53,10 +58,13 @@ class SuccessPayedActivity : AppCompatActivity() {
     }
 
     private inner class FinishActivityTimerTask(val activity: Activity) : TimerTask() {
-
         override fun run() {
-            printHelper.removeHelper(activity)
             activity.finish()
         }
+    }
+
+    public override fun onDestroy() {
+        super.onDestroy()
+        printHelper.removeHelper(this)
     }
 }
