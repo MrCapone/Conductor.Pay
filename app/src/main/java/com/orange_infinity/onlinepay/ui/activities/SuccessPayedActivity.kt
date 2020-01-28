@@ -6,13 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import com.orange_infinity.onlinepay.R
-import com.orange_infinity.onlinepay.util.PrintHelper
+import com.iposprinter.printerhelper.*
+import com.orange_infinity.onlinepay.util.convertStringToQr
 import kotlinx.android.synthetic.main.activity_success_payed.*
 import java.util.*
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
 
 
 class SuccessPayedActivity : AppCompatActivity() {
@@ -41,7 +38,12 @@ class SuccessPayedActivity : AppCompatActivity() {
         }
 
         tcCheque.setOnClickListener {
-            printHelper.printText()
+            val number = 5
+            val time = printHelper.getCurrentTimeStamp(this)
+            val turn = 1
+            val OFD = arrayOf("_____", "_____", "_____", "_____", "_____")
+            val QR = convertStringToQr("http://wwww.nalog.ru", 500)
+            printHelper.printReceipt(number, time, turn, OFD, QR);
         }
 
         timer = Timer()
