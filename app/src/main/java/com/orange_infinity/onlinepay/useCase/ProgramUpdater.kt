@@ -24,7 +24,7 @@ class ProgramUpdater { //TODO("Не правильная архитекрута,
                     Log.i(MAIN_TAG, "onResponse for isLastVersion")
 
                     if (lastVersionDto != null) {
-                        if (currentVersion != Integer.parseInt(lastVersionDto.version)) {
+                        if (currentVersion < Integer.parseInt(lastVersionDto.version)) {
                             //updateLoader.update()
                             updateProgram(updateLoader)
                             Log.i(MAIN_TAG, "Update from versionCode $currentVersion to ${lastVersionDto.version}")

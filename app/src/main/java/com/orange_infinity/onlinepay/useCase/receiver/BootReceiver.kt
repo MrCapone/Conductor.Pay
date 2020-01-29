@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.orange_infinity.onlinepay.ui.activities.MainActivity
 
@@ -20,15 +21,24 @@ class BootReceiver : BroadcastReceiver() {
         this.context = context
         val action = intent.action
 
-        if (action.equals(BOOT_ACTION, ignoreCase = true) || action.equals(BOOT_ACTION2, ignoreCase = true)
-            || action.equals(BOOT_ACTION3, ignoreCase = true)) {
+        Toast.makeText(context.applicationContext, "Receiver is work!", Toast.LENGTH_LONG).show()
+        val activityIntent = Intent(context, MainActivity::class.java)
+        activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(activityIntent)
 
-            if (hasPermissions(context)) {
-                val activityIntent = Intent(context, MainActivity::class.java)
-                activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                context.startActivity(activityIntent)
-            }
-        }
+//        if (action.equals(BOOT_ACTION, ignoreCase = true) || action.equals(BOOT_ACTION2, ignoreCase = true)
+//            || action.equals(BOOT_ACTION3, ignoreCase = true)) {
+//
+//            if (hasPermissions(context)) {
+//                val activityIntent = Intent(context, MainActivity::class.java)
+//                activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                context.startActivity(activityIntent)
+//            }
+//        } else {
+//            val activityIntent = Intent(context, MainActivity::class.java)
+//            activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//            context.startActivity(activityIntent)
+//        }
     }
 
     private fun hasPermissions(context: Context): Boolean {
