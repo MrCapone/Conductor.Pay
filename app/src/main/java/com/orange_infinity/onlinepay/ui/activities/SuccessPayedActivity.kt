@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import com.iposprinter.printerhelper.*
+import com.orange_infinity.onlinepay.R
 import com.orange_infinity.onlinepay.util.convertStringToQr
 import com.orange_infinity.onlinepay.data.db.AppDatabase
 import com.orange_infinity.onlinepay.useCase.CashChequeManager
@@ -47,6 +48,7 @@ class SuccessPayedActivity : AppCompatActivity() {
             val QR = convertStringToQr("http://wwww.nalog.ru", 500)
             printHelper.printReceipt(number, time, turn, OFD, QR);
             //startActivityForResult(Intent(this, ScanningActivity::class.java), ScanningActivity.SCANNING_FOR_PRINTER)
+            finish()
         }
 
         link = intent.getStringExtra(CHEQUE_LINK_KEY)

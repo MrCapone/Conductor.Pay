@@ -142,6 +142,7 @@ public class PrintHelper {
 
                         mIPosPrinterService.printBlankLines(2, 8, callback);
 
+                        /*
                         if (OFD != null && OFD.length >= 5) {
                             mIPosPrinterService.PrintSpecFormatText("заводской номер фискального накопителя" + "    " + OFD[0] + "\n", "ST", 16, 1, callback);
                             mIPosPrinterService.PrintSpecFormatText("регистрационный номер ККТ" + "           " + OFD[0] + "\n", "ST", 16, 1, callback);
@@ -149,6 +150,7 @@ public class PrintHelper {
                             mIPosPrinterService.PrintSpecFormatText("фискальный признак документа" + "              " + OFD[0] + "\n", "ST", 16, 1, callback);
                             mIPosPrinterService.PrintSpecFormatText("версия ФФД" + "                     " + OFD[0] + "\n", "ST", 16, 1, callback);
                         }
+                        */
 
                         mIPosPrinterService.printBlankLines(2, 8, callback);
 
@@ -159,7 +161,7 @@ public class PrintHelper {
 
                         mIPosPrinterService.printBitmap(1, 10, QR, callback);
 
-                        mIPosPrinterService.PrintSpecFormatText("ТЕСТОВАЯ ПЕЧАТЬ\n", "ST", 24, 1, callback); //TODO remove!
+                        //mIPosPrinterService.PrintSpecFormatText("ТЕСТОВАЯ ПЕЧАТЬ\n", "ST", 24, 1, callback); //TODO remove!
 
                         mIPosPrinterService.printerPerformPrint(160, callback);
                     } catch (RemoteException e) {

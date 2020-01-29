@@ -7,10 +7,10 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.orange_infinity.onlinepay"
-        minSdkVersion 25
+        minSdkVersion 21
         multiDexEnabled true
         targetSdkVersion 28
-        versionCode 9
+        versionCode 10
         versionName "1.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
